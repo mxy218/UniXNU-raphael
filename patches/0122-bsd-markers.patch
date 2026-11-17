@@ -1,0 +1,26 @@
+--- a/osfmk/kern/startup.c	2026-11-17 18:13:39.452777944 +0000
++++ b/osfmk/kern/startup.c	2026-11-17 19:30:01.075465511 +0000
+@@ -687,6 +687,7 @@
+ #ifdef  IOKIT
+ 	kernel_bootstrap_log("PE_init_iokit");
+ 	PE_init_iokit();
++	kprintf("Z20MARK PE_init_iokit done\n");
+ #endif
+ 
+ 	assert(ml_get_interrupts_enabled() == FALSE);
+@@ -771,6 +772,7 @@
+ #ifdef  IOKIT
+ 	kernel_bootstrap_log("PE_lockdown_iokit");
+ 	PE_lockdown_iokit();
++	kprintf("Z20MARK PE_lockdown_iokit done\n");
+ #endif
+ 	/*
+ 	 * max_cpus must be nailed down by the time PE_lockdown_iokit() finishes,
+@@ -787,6 +789,7 @@
+ 	 *	Start the user bootstrap.
+ 	 */
+ #ifdef  MACH_BSD
++	kprintf("Z20MARK before bsd_init\n");
+ 	bsd_init();
+ #endif
+ 
