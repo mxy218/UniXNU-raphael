@@ -1,0 +1,12 @@
+--- a/osfmk/console/serial_console.c	2026-11-17 18:49:39.884221618 +0000
++++ b/osfmk/console/serial_console.c	2026-11-17 18:51:56.906838188 +0000
+@@ -204,6 +204,9 @@
+ 
+ 	lck_mtx_init(&console_ring.flush_lock, &console_lck_grp, LCK_ATTR_NULL);
+ 	lck_ticket_init(&console_ring.write_lock, &console_lck_grp);
++
++	/* Z20: SWEET fbcon is registered as the serial backend; use it. */
++	cons_ops_index = SERIAL_CONS_OPS;
+ }
+ 
+ /**
