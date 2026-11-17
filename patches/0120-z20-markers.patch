@@ -1,0 +1,28 @@
+--- a/osfmk/kern/startup.c	2026-11-17 18:13:39.452777944 +0000
++++ b/osfmk/kern/startup.c	2026-11-17 18:13:44.166775373 +0000
+@@ -432,6 +432,7 @@
+ 
+ 	kernel_bootstrap_log("vm_mem_bootstrap");
+ 	vm_mem_bootstrap();
++	kprintf("Z20MARK vm_mem_bootstrap done\n");
+ 
+ 	machine_info.memory_size = (uint32_t)mem_size;
+ #if XNU_TARGET_OS_OSX
+@@ -475,7 +476,9 @@
+ 	}
+ 
+ 	kernel_bootstrap_log("console_init");
++	kprintf("Z20MARK before console_init\n");
+ 	console_init();
++	kprintf("Z20MARK after console_init\n");
+ 
+ 	kernel_bootstrap_log("stackshot_init");
+ 	stackshot_init();
+@@ -502,6 +505,7 @@
+ 
+ 	kernel_bootstrap_log("machine_init");
+ 	machine_init();
++	kprintf("Z20MARK machine_init done\n");
+ 
+ 	kernel_bootstrap_log("thread_machine_init_template");
+ 	thread_machine_init_template();
