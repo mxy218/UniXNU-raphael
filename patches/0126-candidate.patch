@@ -1,0 +1,14 @@
+--- a/iokit/Kernel/IOService.cpp	2023-06-24 00:55:54.000000000 +0000
++++ b/iokit/Kernel/IOService.cpp	2026-11-18 21:40:30.591912538 +0000
+@@ -3844,6 +3844,11 @@
+ 			continue;
+ 		}
+ 
++		{
++			OSSymbol *z20cls = OSDynamicCast(OSSymbol, match->getObject(gIOClassKey));
++			IOLog("Z20SVC candidate %s\n", z20cls ? z20cls->getCStringNoCopy() : "?");
++		}
++
+ 		props = NULL;
+ #if IOMATCHDEBUG
+ 		debugFlags = getDebugFlags( match );
