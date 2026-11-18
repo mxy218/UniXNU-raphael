@@ -1,0 +1,14 @@
+--- a/iokit/Kernel/IOService.cpp	2023-06-24 00:55:54.000000000 +0000
++++ b/iokit/Kernel/IOService.cpp	2026-11-18 19:38:11.638612358 +0000
+@@ -1070,6 +1070,11 @@
+ IOService::startMatching( IOOptionBits options )
+ {
+ 	IOService * provider;
++
++	{
++		const char *z20name = getName();
++		IOLog("Z20SVC match %s\n", z20name ? z20name : "?");
++	}
+ 	UInt32      prevBusy = 0;
+ 	bool        needConfig;
+ 	bool        needWake = false;
