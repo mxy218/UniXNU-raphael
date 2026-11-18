@@ -1,0 +1,25 @@
+--- a/pexpert/arm/pe_init.c	2026-11-18 19:04:59.148525001 +0000
++++ b/pexpert/arm/pe_init.c	2026-11-18 19:05:32.374422972 +0000
+@@ -357,8 +357,22 @@
+ 		KDBG_RELEASE(IOKDBG_CODE(DBG_BOOTER, 0), start_time_value, debug_wait_start_value, load_kernel_start_value, populate_registry_time_value);
+ 	}
+ 
++	kprintf("Z20MARK before InitIOKit\n");
+ 	InitIOKit(PE_state.deviceTreeHead);
++	kprintf("Z20MARK InitIOKit done\n");
++
++	boolean_t z20irq = FALSE;
++	PE_parse_boot_argn("z20irq", &z20irq, sizeof(z20irq));
++	kprintf("Z20MARK before ConfigureIOKit (irq=%d)\n", z20irq);
++	boolean_t z20old = FALSE;
++	if (z20irq) {
++		z20old = ml_set_interrupts_enabled(TRUE);
++	}
+ 	ConfigureIOKit();
++	if (z20irq) {
++		ml_set_interrupts_enabled(z20old);
++	}
++	kprintf("Z20MARK ConfigureIOKit done\n");
+ }
+ 
+ void
