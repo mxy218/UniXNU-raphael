@@ -1,0 +1,22 @@
+--- a/iokit/Kernel/IOStartIOKit.cpp	2023-06-24 00:55:54.000000000 +0000
++++ b/iokit/Kernel/IOStartIOKit.cpp	2026-11-18 20:05:56.400218730 +0000
+@@ -182,7 +182,9 @@
+ {
+ 	SOCD_TRACE_XNU(START_IOKIT);
+ 	assert(gRootNub != NULL);
++	IOLog("Z20MARK before startIOServiceMatching\n");
+ 	bool ok = gRootNub->startIOServiceMatching();
++	IOLog("Z20MARK startIOServiceMatching done (%d)\n", ok);
+ 	if (__improbable(!ok)) {
+ 		panic("Failed to start IOService matching");
+ 	}
+--- a/bsd/kern/bsd_init.c	2023-06-24 00:55:54.000000000 +0000
++++ b/bsd/kern/bsd_init.c	2026-11-18 20:05:56.400218730 +0000
+@@ -476,6 +476,7 @@
+ void
+ bsd_init(void)
+ {
++	IOLog("Z20MARK bsd_init entered\n");
+ 	struct uthread *ut;
+ 	vnode_t init_rootvnode = NULLVP;
+ 	struct proc_ro_data kernproc_ro_data = {
